@@ -1,13 +1,23 @@
 import { Image } from "expo-image";
-import { Platform, StyleSheet } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 
+import ThemedText from "@/components/Elements/ThemedText";
+import ThemedView from "@/components/Elements/ThemedView";
 import { HelloWave } from "@/components/hello-wave";
+import CommonModal from "@/components/Modal";
 import ParallaxScrollView from "@/components/parallax-scroll-view";
-import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
-import { Link } from "expo-router";
+import { RootState } from "@/store";
+import { setId } from "@/store/appStore";
+import { p2d } from "@/utils/appUtils";
+import { useState } from "react";
+import { Button, Text } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function HomeScreen() {
+  const dispatch = useDispatch();
+  const id = useSelector((state: RootState) => state.appStore.id);
+  const [visible, setVisible] = useState<boolean>(false);
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
@@ -19,15 +29,14 @@ export default function HomeScreen() {
       }
     >
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
+        <ThemedText>Welcome!</ThemedText>
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+        <ThemedText>Step 1: Try it</ThemedText>
         <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{" "}
-          <ThemedText type="defaultSemiBold">
+          Edit <ThemedText>app/(tabs)/index.tsx</ThemedText> to see changes. Press{" "}
+          <ThemedText>
             {Platform.select({
               ios: "cmd + d",
               android: "cmd + m",
@@ -37,44 +46,75 @@ export default function HomeScreen() {
           to open developer tools.
         </ThemedText>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert("Action pressed")} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert("Share pressed")}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert("Delete pressed")}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
-
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
+      <ThemedView>
+        <ThemedText>store value: {id}</ThemedText>
+        <Button
+          mode="contained"
+          onPress={() => {
+            dispatch(setId(10));
+          }}
+          style={{ marginTop: 20 }}
+        >
+          设置Store Value
+        </Button>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{" "}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{" "}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{" "}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
+      <Button
+        mode="contained"
+        onPress={() => {
+          // router.push("/modal");
+          setVisible(true);
+        }}
+        style={{ marginTop: 20 }}
+      >
+        打开全局 Modal
+      </Button>
+      <CommonModal
+        visible={visible}
+        onDismiss={() => setVisible(false)}
+        title="通用 Modal 示例"
+        footer={
+          <View style={styles.modalFooter}>
+            <Button mode="contained" style={styles.modalFooterBtn}>
+              Cancel
+            </Button>
+            <Button mode="contained" style={styles.modalFooterBtn}>
+              Confirm
+            </Button>
+          </View>
+        }
+      >
+        <View>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+          <Text variant="labelLarge">Label Small</Text>
+        </View>
+      </CommonModal>
     </ParallaxScrollView>
   );
 }
@@ -95,5 +135,14 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: "absolute",
+  },
+  modalFooter: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  modalFooterBtn: {
+    paddingHorizontal: p2d(20),
+    paddingVertical: p2d(4),
+    borderRadius: p2d(24),
   },
 });

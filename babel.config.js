@@ -9,12 +9,17 @@ module.exports = function (api) {
           root: ["./"],
           extensions: [".ios.js", ".android.js", ".js", ".ts", ".tsx", ".json"],
           alias: {
-            '~': './',      // 对应 "~/*": ["./*"]
             '@': './src',   // 对应 "@/*": ["src/*"]
+            '~': './',      // 对应 "~/*": ["./*"]
           },
         },
       ],
       'react-native-reanimated/plugin',
     ],
+    env: {
+      production: {
+        plugins: ['react-native-paper/babel'],
+      },
+    },
   };
 };

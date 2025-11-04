@@ -30,8 +30,8 @@ module.exports = defineConfig([
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
           paths: ['./src', './'],
           alias: {
-            '~': './',
             '@': './src',
+            '~': './',
           },
         },
       },
@@ -45,6 +45,6 @@ module.exports = defineConfig([
     },
   },
   {
-    ignores: ['dist/*', 'node_modules/*', 'eslint.config.js'],
+    ignores: ['dist/*', 'node_modules/*', 'eslint.config.js', 'babel.config.js', 'prettier.config.js'],
   },
 ]);
