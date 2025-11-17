@@ -18,7 +18,6 @@ export default function RootLayout() {
 
   // 自定义主题
   const paperTheme = useMemo(() => {
-    console.log("colorScheme----", colorScheme);
     return colorScheme === "dark"
       ? {
           ...MD3DarkTheme,
@@ -39,6 +38,7 @@ export default function RootLayout() {
           <StatusBar style="auto" />
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="pages" options={{ headerShown: false }} />
           </Stack>
         </PaperProvider>
       </ReduxProvider>
