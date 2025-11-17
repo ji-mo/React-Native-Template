@@ -1,12 +1,16 @@
-import { p2d } from "@/utils/appUtils";
+import { deviceWidthDp, p2d } from "@/utils/appUtils";
 import { StyleSheet } from "react-native";
 
-export const HEADER_MAX_HEIGHT = 350; // 初始高度
-export const HEADER_MIN_HEIGHT = 90; // 收起高度
+export const HEADER_EXPANDED_HEIGHT = 320; // 初始高度
+export const HEADER_COLLAPSED_HEIGHT = 120; // 收起高度
+export const INFO_HIDE_DISTANCE = 60; // 收起高度
+export const INFO_SHOW_DISTANCE = 90; // 收起高度
+export const SCROLL_DISTANCE = HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT; // 距离
 
 export default StyleSheet.create({
   dynamic: {
     position: "relative",
+    width: deviceWidthDp,
     flex: 1,
   },
   // header UI
@@ -23,6 +27,14 @@ export default StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  headerSetting: {
+    padding: p2d(12),
+    alignItems: "flex-end",
+  },
+  settingImg: {
+    width: p2d(32),
+    height: p2d(32),
+  },
   headerInfo: {
     position: "absolute",
     left: 0,
@@ -30,20 +42,27 @@ export default StyleSheet.create({
     bottom: 0,
     zIndex: 9,
     padding: p2d(16),
-    gap: p2d(16),
-  },
-  headerInfoTop: {
     gap: p2d(12),
   },
-  headerInfoTopUser: {
+  headerInfoTop: {
+    position: "relative",
     flexDirection: "row",
     alignItems: "center",
     gap: p2d(8),
+  },
+  backImage: {
+    position: "absolute",
+    left: 0,
+    zIndex: 10,
+    width: p2d(20),
+    height: p2d(20),
   },
   avatarImage: {
     width: p2d(64),
     height: p2d(64),
     borderRadius: p2d(32),
+    borderWidth: p2d(0.5),
+    borderColor: "#0000001A",
   },
   headerInfoTopContent: {
     flex: 1,
@@ -67,7 +86,10 @@ export default StyleSheet.create({
     fontSize: p2d(12),
     color: "#fff",
   },
-  headerInfoUserDesc: {
+  headerInfoBottom: {
+    gap: p2d(16),
+  },
+  headerInfoDesc: {
     lineHeight: p2d(16),
     fontSize: p2d(12),
     color: "#fff",
@@ -87,50 +109,6 @@ export default StyleSheet.create({
   },
 
   listContainer: {
-    borderTopLeftRadius: p2d(16),
-    overflow: "hidden",
     flex: 1,
-  },
-
-  profileContainer: {
-    marginTop: 200,
-    padding: 20,
-  },
-  name: {
-    fontSize: 28,
-    color: "#fff",
-    fontWeight: "bold",
-  },
-  bio: {
-    fontSize: 16,
-    color: "#eee",
-    marginTop: 6,
-  },
-  compactBar: {
-    position: "absolute",
-    bottom: 0,
-    height: HEADER_MIN_HEIGHT,
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 20,
-    backgroundColor: "rgba(255,255,255,0.95)",
-  },
-  avatarSmall: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
-  smallName: {
-    marginLeft: 12,
-    fontSize: 18,
-    fontWeight: "600",
-  },
-  postItem: {
-    height: 120,
-    justifyContent: "center",
-    paddingHorizontal: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: "#eee",
   },
 });
