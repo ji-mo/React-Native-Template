@@ -2,6 +2,7 @@ import ThemedText from "@/components/Elements/ThemedText";
 import ThemedView from "@/components/Elements/ThemedView";
 import ToggleIcon from "@/components/ToggleIcon";
 import { Image } from "expo-image";
+import { memo } from "react";
 import { View } from "react-native";
 import styles from "./styles";
 
@@ -9,7 +10,7 @@ export interface IDynamicListItemProps {
   data?: number;
 }
 
-export default function DynamicListItem({ data }: IDynamicListItemProps) {
+export default memo(function DynamicListItem({ data }: IDynamicListItemProps) {
   return (
     <ThemedView style={styles.item}>
       <View style={styles.left}>
@@ -109,4 +110,4 @@ export default function DynamicListItem({ data }: IDynamicListItemProps) {
       </View>
     </ThemedView>
   );
-}
+});

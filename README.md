@@ -27,3 +27,5 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 4. 确认交互效果，上滑动后header收起部分，但是头像（缩小）且和昵称下滑（实际上缩小会导致距离变化，所以个人更倾向上滑动时原来展示信息淡出，底部新的头像昵称淡入，效果：https://github-production-user-asset-6210df.s3.amazonaws.com/66866535/515459970-272a3fd9-4cd9-4101-9def-11c5ee4ba3c2.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20251118%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251118T005826Z&X-Amz-Expires=300&X-Amz-Signature=fa951bc5e6eb21158c43edfa83735116259b511f446f677782fa58e7bd7448af&X-Amz-SignedHeaders=host）
 
 5. 最终效果都存放在assets/preview中，安卓和ios都进行基本的调试(暗黑模式也进行了一定兼容)，时间有限，在追求速度的同时设计上可能考虑不够周全，在实际开发中可能需要和产品、UI沟通实际选用最佳的效果。
+
+6. new: 还原左上角圆角，新增refresh和footer

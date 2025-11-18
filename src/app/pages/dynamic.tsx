@@ -1,5 +1,6 @@
 import DynamicListItem from "@/components/DynamicListItem";
 import ThemedView from "@/components/Elements/ThemedView";
+import ListFooter from "@/components/ListFooter";
 import Touchable from "@/components/Touchable";
 import styles, {
   HEADER_COLLAPSED_HEIGHT,
@@ -7,17 +8,29 @@ import styles, {
   INFO_HIDE_DISTANCE,
   SCROLL_DISTANCE,
 } from "@/styles/dynamic";
+import { deviceHeightDp } from "@/utils/appUtils";
 import { FlashList } from "@shopify/flash-list";
 
 import { Image } from "expo-image";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { NativeScrollEvent, NativeSyntheticEvent, Text, View } from "react-native";
 import Animated, { interpolate, useAnimatedStyle, useSharedValue } from "react-native-reanimated";
 
 export default function DynamicPage() {
   const [showBack] = useState<boolean>(true);
   const [descHeight, setDescHeight] = useState<number>(0);
+  const [refreshing, setRefreshing] = useState(false);
+  const [showFooter, setShowFooter] = useState(true);
   const scrollY = useSharedValue(0);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setShowFooter(false);
+    setTimeout(() => {
+      setRefreshing(false);
+      setShowFooter(true);
+    }, 1500); // 模拟网络请求
+  }, []);
 
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     scrollY.value = event.nativeEvent.contentOffset.y;
@@ -33,12 +46,22 @@ export default function DynamicPage() {
     return { height };
   });
 
+  const listStyle = useAnimatedStyle(() => {
+    const height = interpolate(
+      scrollY.value,
+      [0, SCROLL_DISTANCE],
+      [deviceHeightDp - HEADER_EXPANDED_HEIGHT + 20, deviceHeightDp - HEADER_COLLAPSED_HEIGHT + 20],
+      "clamp",
+    );
+    return { height };
+  });
+
   const avatarStyle = useAnimatedStyle(() => {
     const scale = interpolate(scrollY.value, [0, SCROLL_DISTANCE], [1, 0.5], "clamp");
     const translateY = interpolate(
       scrollY.value,
       [0, SCROLL_DISTANCE],
-      [0, descHeight * 2 + 60],
+      [0, descHeight * 2 + 76],
       "clamp",
     );
     const translateX = interpolate(
@@ -56,7 +79,7 @@ export default function DynamicPage() {
     const translateY = interpolate(
       scrollY.value,
       [0, SCROLL_DISTANCE],
-      [0, descHeight + 40],
+      [0, descHeight + 48],
       "clamp",
     );
     const translateX = interpolate(
@@ -85,7 +108,7 @@ export default function DynamicPage() {
     const translateY = interpolate(
       scrollY.value,
       [0, SCROLL_DISTANCE],
-      [0, descHeight + 28],
+      [0, descHeight + 36],
       "clamp",
     );
     return { opacity, transform: [{ translateY }] };
@@ -151,18 +174,20 @@ export default function DynamicPage() {
       </Animated.View>
 
       {/* FlashList */}
-      <View style={styles.listContainer}>
+      <Animated.View style={[styles.listContainer, listStyle]}>
         <FlashList
-          style={{ flex: 1 }}
+          style={styles.list}
           showsVerticalScrollIndicator={false}
           data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}
           keyExtractor={(item) => item.toString()}
           renderItem={({ item }) => <DynamicListItem data={item} />}
-          contentContainerStyle={{ paddingTop: HEADER_EXPANDED_HEIGHT }}
           scrollEventThrottle={16}
           onScroll={onScroll}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          ListFooterComponent={showFooter ? <ListFooter text="没有更多了..." /> : null}
         />
-      </View>
+      </Animated.View>
     </ThemedView>
   );
 }

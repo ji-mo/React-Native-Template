@@ -1,11 +1,11 @@
-import { deviceWidthDp, p2d } from "@/utils/appUtils";
+import { deviceHeightDp, deviceWidthDp, p2d } from "@/utils/appUtils";
 import { StyleSheet } from "react-native";
 
-export const HEADER_EXPANDED_HEIGHT = 320; // 初始高度
-export const HEADER_COLLAPSED_HEIGHT = 120; // 收起高度
+export const HEADER_EXPANDED_HEIGHT = 340; // header初始高度
+export const HEADER_COLLAPSED_HEIGHT = 140; // header收起高度
 export const INFO_HIDE_DISTANCE = 60; // 收起高度
 export const INFO_SHOW_DISTANCE = 90; // 收起高度
-export const SCROLL_DISTANCE = HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT; // 距离
+export const SCROLL_DISTANCE = HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT; // 滑动距离
 
 export default StyleSheet.create({
   dynamic: {
@@ -21,7 +21,7 @@ export default StyleSheet.create({
     right: 0,
     bottom: 0,
     overflow: "hidden",
-    zIndex: 9,
+    zIndex: 2,
   },
   headerImage: {
     width: "100%",
@@ -42,6 +42,7 @@ export default StyleSheet.create({
     bottom: 0,
     zIndex: 9,
     padding: p2d(16),
+    paddingBottom: p2d(36),
     gap: p2d(12),
   },
   headerInfoTop: {
@@ -109,6 +110,17 @@ export default StyleSheet.create({
   },
 
   listContainer: {
+    height: deviceHeightDp - HEADER_EXPANDED_HEIGHT + 20,
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 3,
+    overflow: "hidden",
+    borderTopLeftRadius: p2d(16),
+  },
+  list: {
     flex: 1,
+    overflow: "hidden",
   },
 });
