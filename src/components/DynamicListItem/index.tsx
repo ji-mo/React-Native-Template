@@ -1,7 +1,8 @@
+import ThemedText from "@/components/Elements/ThemedText";
 import ThemedView from "@/components/Elements/ThemedView";
+import ToggleIcon from "@/components/ToggleIcon";
 import { Image } from "expo-image";
-import { Text, View } from "react-native";
-import ToggleIcon from "../ToggleIcon";
+import { View } from "react-native";
 import styles from "./styles";
 
 export interface IDynamicListItemProps {
@@ -12,15 +13,21 @@ export default function DynamicListItem({ data }: IDynamicListItemProps) {
   return (
     <ThemedView style={styles.item}>
       <View style={styles.left}>
-        <Text style={styles.leftDay}>27</Text>
-        <Text style={styles.leftMonth}>十二月</Text>
+        <ThemedText style={styles.leftDay} lightColor="#161616">
+          27
+        </ThemedText>
+        <ThemedText style={styles.leftMonth} lightColor="#161616">
+          十二月
+        </ThemedText>
       </View>
       <View style={styles.right}>
-        <Text style={styles.rightTime}>3 分钟前</Text>
-        <Text style={styles.rightDesc}>
+        <ThemedText style={styles.rightTime} lightColor="#858585">
+          3 分钟前
+        </ThemedText>
+        <ThemedText style={styles.rightDesc} lightColor="#161616">
           {data}
           这是动态的描述呀，多加点文字让描述更长，怎么？认不出我了吗？这是动态的描述呀，多加点文字让描述更长，怎么？认不出我了吗？
-        </Text>
+        </ThemedText>
         <View style={styles.rightImgList}>
           <Image
             source={require("~/assets/dynamic/headerBg.jpg")}
@@ -68,7 +75,9 @@ export default function DynamicListItem({ data }: IDynamicListItemProps) {
               defaultSelected={false}
               callBack={() => {}}
             />
-            <Text style={styles.rightBtnText}>1234</Text>
+            <ThemedText style={styles.rightBtnText} lightColor="#161616">
+              1234
+            </ThemedText>
           </View>
           <View style={styles.rightBtn}>
             <ToggleIcon
@@ -79,7 +88,9 @@ export default function DynamicListItem({ data }: IDynamicListItemProps) {
               defaultSelected={false}
               callBack={() => {}}
             />
-            <Text style={styles.rightBtnText}>1234</Text>
+            <ThemedText style={styles.rightBtnText} lightColor="#161616">
+              1234
+            </ThemedText>
           </View>
           <View style={styles.rightBtn}>
             <ToggleIcon
@@ -90,7 +101,9 @@ export default function DynamicListItem({ data }: IDynamicListItemProps) {
               defaultSelected={false}
               callBack={() => {}}
             />
-            <Text style={styles.rightBtnText}>1234</Text>
+            <ThemedText style={styles.rightBtnText} lightColor="#161616">
+              1234
+            </ThemedText>
           </View>
         </View>
       </View>

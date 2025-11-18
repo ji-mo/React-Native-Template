@@ -1,9 +1,6 @@
 import { p2d } from "@/utils/appUtils";
 import { StyleSheet } from "react-native";
 
-export const HEADER_MAX_HEIGHT = 300; // 初始高度
-export const HEADER_MIN_HEIGHT = 150; // 收起高度
-
 export default StyleSheet.create({
   item: {
     padding: p2d(12),
@@ -21,30 +18,29 @@ export default StyleSheet.create({
     lineHeight: p2d(20),
     fontSize: p2d(16),
     fontWeight: "bold",
-    color: "#161616",
+    // color: "#161616",
   },
   leftMonth: {
     height: p2d(12),
     lineHeight: p2d(12),
     fontSize: p2d(10),
     fontWeight: "bold",
-    color: "#161616",
+    // color: "#161616",
   },
   right: {
     flex: 1,
     gap: p2d(8),
-    // backgroundColor: "#ff9",
   },
   rightTime: {
     height: p2d(12),
     lineHeight: p2d(12),
     fontSize: p2d(11),
-    color: "#858585",
+    // color: "#858585",
   },
   rightDesc: {
     lineHeight: p2d(20),
     fontSize: p2d(15),
-    color: "#161616",
+    // color: "#161616",
   },
   rightImgList: {
     flexDirection: "row",
@@ -72,6 +68,6 @@ export default StyleSheet.create({
     height: p2d(18),
     lineHeight: p2d(18),
     fontSize: p2d(13),
-    color: "#161616",
+    // color: "#161616",
   },
 });
