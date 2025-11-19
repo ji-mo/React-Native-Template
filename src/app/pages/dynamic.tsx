@@ -8,7 +8,6 @@ import styles, {
   INFO_HIDE_DISTANCE,
   SCROLL_DISTANCE,
 } from "@/styles/dynamic";
-import { deviceHeightDp } from "@/utils/appUtils";
 import { FlashList } from "@shopify/flash-list";
 
 import { Image } from "expo-image";
@@ -46,22 +45,12 @@ export default function DynamicPage() {
     return { height };
   });
 
-  const listStyle = useAnimatedStyle(() => {
-    const height = interpolate(
-      scrollY.value,
-      [0, SCROLL_DISTANCE],
-      [deviceHeightDp - HEADER_EXPANDED_HEIGHT + 20, deviceHeightDp - HEADER_COLLAPSED_HEIGHT + 20],
-      "clamp",
-    );
-    return { height };
-  });
-
   const avatarStyle = useAnimatedStyle(() => {
     const scale = interpolate(scrollY.value, [0, SCROLL_DISTANCE], [1, 0.5], "clamp");
     const translateY = interpolate(
       scrollY.value,
       [0, SCROLL_DISTANCE],
-      [0, descHeight * 2 + 76],
+      [0, descHeight * 2 + 60],
       "clamp",
     );
     const translateX = interpolate(
@@ -79,7 +68,7 @@ export default function DynamicPage() {
     const translateY = interpolate(
       scrollY.value,
       [0, SCROLL_DISTANCE],
-      [0, descHeight + 48],
+      [0, descHeight + 40],
       "clamp",
     );
     const translateX = interpolate(
@@ -108,7 +97,7 @@ export default function DynamicPage() {
     const translateY = interpolate(
       scrollY.value,
       [0, SCROLL_DISTANCE],
-      [0, descHeight + 36],
+      [0, descHeight + 28],
       "clamp",
     );
     return { opacity, transform: [{ translateY }] };
@@ -174,20 +163,21 @@ export default function DynamicPage() {
       </Animated.View>
 
       {/* FlashList */}
-      <Animated.View style={[styles.listContainer, listStyle]}>
+      <View style={styles.listContainer}>
         <FlashList
-          style={styles.list}
+          style={{ flex: 1 }}
           showsVerticalScrollIndicator={false}
           data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}
           keyExtractor={(item) => item.toString()}
           renderItem={({ item }) => <DynamicListItem data={item} />}
+          contentContainerStyle={{ paddingTop: HEADER_EXPANDED_HEIGHT }}
           scrollEventThrottle={16}
           onScroll={onScroll}
           refreshing={refreshing}
           onRefresh={onRefresh}
           ListFooterComponent={showFooter ? <ListFooter text="没有更多了..." /> : null}
         />
-      </Animated.View>
+      </View>
     </ThemedView>
   );
 }
